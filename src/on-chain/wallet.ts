@@ -1,24 +1,41 @@
 import { privateKey } from "../config/environment.js";
-import {
-    createKeyPairFromBytes,
-    createSignerFromKeyPair,
-    getBase58Encoder
-} from "gill";
-import { McpLogger } from "../utils/logger.js";
+import { lookupKnownSPLToken } from "@faremeter/info/solana";
+import { mcpConfig } from "../config/index.js";
+import { Connection, Keypair, PublicKey, VersionedTransaction } from "@solana/web3.js";
+import { createPaymentHandler } from "@faremeter/payment-solana/exact";
+import { wrap } from "@faremeter/fetch";
+import bs58 from "bs58";
 
-export const createSigner = async () => {
-    const keypairBase58 = privateKey;
+export const getkeypair = () => {
+    const keypair = Keypair.fromSecretKey(bs58.decode(privateKey));
+    return keypair
+}
 
-    try {
-        const keypair = await createKeyPairFromBytes(
-            getBase58Encoder().encode(keypairBase58)
-        );
+export const getFetchWithPayerHandler = async () => {
+    const keypair = getkeypair()
+    const connection = new Connection(mcpConfig.rpcUrl, {
+        commitment: "confirmed",
+    });
 
-        const signer = await createSignerFromKeyPair(keypair);
-        McpLogger.log(JSON.stringify(signer, null, 2), "Created signer from secret key.");
-        McpLogger.log(`Signer Public Key: ${signer.address}`);
-        return signer;
-    } catch (error) {
-        throw new Error("Failed to create wallet from the provided secret key.");
+    const usdcInfo = lookupKnownSPLToken(mcpConfig.clusterId, "USDC");
+
+    if (!usdcInfo) {
+        throw new Error("USDC token info not found");
     }
+
+    const usdcMint = new PublicKey(usdcInfo.address);
+
+    const wallet = {
+        network: mcpConfig.clusterId,
+        publicKey: keypair.publicKey,
+        updateTransaction: async (tx: VersionedTransaction) => {
+            tx.sign([keypair]);
+            return tx;
+        }
+    };
+
+    const handler = createPaymentHandler(wallet, usdcMint, connection);
+    const fetchWithPayer = wrap(fetch, { handlers: [handler] });
+
+    return fetchWithPayer;
 }

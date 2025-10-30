@@ -1,5 +1,5 @@
 import "../utils/env-loader.js";
-import { PAYAI_FACILITATOR_URL } from "./constants.js";
+import { DEFAULT_DEVNET_RPC_URL, PAYAI_FACILITATOR_URL } from "./constants.js";
 
 export const useStreamHttp = process.env.USE_STREAMABLE_HTTP === "true";
 export const port = Number(process.env.PORT || 3000);
@@ -11,6 +11,13 @@ export const maxPrice = Number(process.env.MAX_PRICE || 0);
 
 export const privateKey = process.env.PRIVATE_KEY || "";
 
+export const mainnetRpcUrl = process.env.MAINNET_RPC_URL || "";
+export const devnetRpcUrl = process.env.DEVNET_RPC_URL || DEFAULT_DEVNET_RPC_URL;
+
 if (!privateKey) {
   throw new Error("PRIVATE_KEY environment variable is not set.");
+}
+
+if (!mainnetRpcUrl) {
+  throw new Error("MAINNET_RPC_URL environment variable is not set.");
 }

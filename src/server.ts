@@ -12,7 +12,11 @@ import { McpLogger } from "./utils/logger.js";
 
 import { useFacilitator } from "x402/verify";
 import { createX402DocsMcpClient } from "./clients/x402-docs.js";
-import { createSigner } from "./on-chain/wallet.js";
+import { getkeypair } from "./on-chain/wallet.js";
+import { Connection, PublicKey } from "@solana/web3.js";
+import { lookupKnownSPLToken } from "@faremeter/info/solana";
+import { getAssociatedTokenAddress, getAccount } from "@solana/spl-token";
+import { USDC_DECIMALS } from "./config/constants.js";
 
 async function createMcpServer() {
     const server = new McpServer(
@@ -119,6 +123,90 @@ async function createMcpServer() {
             };
         }
     )
+
+    // Get USDC Balance
+
+    server.registerTool(
+        "get_wallet_usdc_balance",
+        {
+            title: "Get Wallet USDC Balance",
+            description: "Retrieve the USDC balance of the configured wallet.",
+            inputSchema: {},
+        },
+        async () => {
+            try {
+                const keypair = getkeypair();
+                const connection = new Connection(mcpConfig.rpcUrl);
+
+                const usdcInfo = lookupKnownSPLToken(mcpConfig.clusterId, "USDC");
+
+                if (!usdcInfo) {
+                    throw new Error("USDC token info not found");
+                }
+
+                const usdcMint = new PublicKey(usdcInfo.address);
+                const walletPublicKey = keypair.publicKey;
+
+                const tokenAccountAddress = await getAssociatedTokenAddress(
+                    usdcMint,
+                    walletPublicKey
+                );
+
+                let balance = 0;
+                let balanceFormatted = "0.00";
+                let accountExists = false;
+
+                try {
+                    const tokenAccount = await getAccount(connection, tokenAccountAddress);
+                    const decimals = USDC_DECIMALS;
+
+                    balance = Number(tokenAccount.amount);
+                    balanceFormatted = (balance / Math.pow(10, decimals)).toFixed(USDC_DECIMALS);
+                    accountExists = true;
+                } catch (error) {
+                    McpLogger.warn(`Token account not found or error: ${error}`);
+                }
+
+                return {
+                    content: [
+                        {
+                            type: "text",
+                            text: JSON.stringify(
+                                {
+                                    wallet: walletPublicKey.toBase58(),
+                                    network: mcpConfig.clusterId,
+                                    tokenAccount: tokenAccountAddress.toBase58(),
+                                    accountExists,
+                                    balance: balance,
+                                    balanceFormatted,
+                                    symbol: "USDC",
+                                    mint: usdcMint.toBase58(),
+                                },
+                                null,
+                                2
+                            ),
+                        },
+                    ],
+                };
+            } catch (err) {
+                return {
+                    content: [
+                        {
+                            type: "text",
+                            text: JSON.stringify(
+                                {
+                                    error: "Failed to fetch USDC balance",
+                                    reason: String((err as Error)?.message ?? err),
+                                },
+                                null,
+                                2
+                            ),
+                        },
+                    ],
+                };
+            }
+        }
+    );
 
     return server;
 }
