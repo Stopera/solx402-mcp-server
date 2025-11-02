@@ -1,5 +1,8 @@
 import express, { type Request, type Response } from "express";
 import cors from "cors";
+import { promises as fs } from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import z from "zod";
 
@@ -18,6 +21,9 @@ import { lookupKnownSPLToken } from "@faremeter/info/solana";
 import { getAssociatedTokenAddress, getAccount } from "@solana/spl-token";
 import { USDC_DECIMALS } from "./config/constants.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 async function createMcpServer() {
     const server = new McpServer(
         {
@@ -27,8 +33,44 @@ async function createMcpServer() {
         {
             capabilities: {
                 tools: {},
+                resources: {},
             },
         },
+    );
+
+    // Register X402 Protocol Flow Diagram Resource
+
+    server.registerTool(
+        "x402-protocol-flow",
+        {
+            title: "X402 Protocol Flow Diagram",
+            description: "Visual diagram showing the X402 protocol flow and architecture",
+            inputSchema: {},
+        },
+        async () => {
+            try {
+                const imagePath = path.join(__dirname, "..", "assets", "x402-protocol-flow.avif");
+                const imageBuffer = await fs.readFile(imagePath);
+                const base64Image = imageBuffer.toString("base64");
+
+                return {
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'This is a x402 diagram flow:',
+                        },
+                        {
+                            type: "image",
+                            data: base64Image,
+                            mimeType: "image/avif",
+                        },
+                    ],
+                };
+            } catch (err) {
+                McpLogger.error(`Failed to read x402-protocol-flow.avif: ${err}`);
+                throw new Error(`Failed to read resource: ${(err as Error)?.message ?? err}`);
+            }
+        }
     );
 
     // X402 Documentation Search Tool

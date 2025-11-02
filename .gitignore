@@ -57,6 +57,7 @@ temp/
 
 # Optional: ignore generated type definitions if you bundle with tsup or tsc --declaration
 *.d.ts
+!src/types/**/*.d.ts
 
 # MCP-specific
 # If you have protocol or schema outputs, ignore them here:
