@@ -11,7 +11,7 @@ export async function createX402DocsMcpClient(): Promise<{
         const x402DocsMcpClient = await createGitbookMcpClient({
             name: mcpConfig.clients.x402Docs.name,
             version: mcpConfig.clients.x402Docs.version,
-            docsUrl: mcpConfig.clients.x402Docs.docsUrl
+            docsUrl: mcpConfig.clients.x402Docs.url
         });
         return x402DocsMcpClient
     } catch (err) {

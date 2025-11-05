@@ -1,5 +1,24 @@
-import { MCP_SERVER_NAME, MCP_SERVER_VERSION, X402_DOCS_GITBOOK_URL, X402_MCP_CLIENT_NAME, X402_MCP_CLIENT_VERSION } from "./constants.js";
-import { devnetRpcUrl, facilitatorUrl, host, isMainnet, mainnetRpcUrl, maxPrice, port, useStreamHttp } from "./environment.js";
+import {
+    MCP_SERVER_NAME,
+    MCP_SERVER_VERSION,
+    SOLANA_MCP_CLIENT_NAME,
+    SOLANA_MCP_CLIENT_VERSION,
+    SOLANA_MCP_SERVER_URL,
+    X402_DOCS_GITBOOK_URL,
+    X402_MCP_CLIENT_NAME,
+    X402_MCP_CLIENT_VERSION
+} from "./constants.js";
+import {
+    devnetRpcUrl,
+    facilitatorUrl,
+    host,
+    isMainnet,
+    mainnetRpcUrl,
+    maxPrice,
+    port,
+    useSolanaMcpServer,
+    useStreamHttp
+} from "./environment.js";
 
 export const mcpConfig = {
     network: isMainnet ? "solana" : "solana-devnet",
@@ -13,8 +32,13 @@ export const mcpConfig = {
         x402Docs: {
             name: X402_MCP_CLIENT_NAME,
             version: X402_MCP_CLIENT_VERSION,
-            docsUrl: X402_DOCS_GITBOOK_URL
-        }  
+            url: X402_DOCS_GITBOOK_URL
+        },
+        solana: {
+            name: SOLANA_MCP_CLIENT_NAME,
+            version: SOLANA_MCP_CLIENT_VERSION,
+            url: SOLANA_MCP_SERVER_URL
+        }
     },
     environment: {
         useStreamHttp,
@@ -23,5 +47,6 @@ export const mcpConfig = {
         isMainnet,
         facilitatorUrl,
         maxPrice,
+        useSolanaMcpServer
     },
 }

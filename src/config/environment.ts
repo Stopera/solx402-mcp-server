@@ -14,6 +14,8 @@ export const privateKey = process.env.PRIVATE_KEY || "";
 export const mainnetRpcUrl = process.env.MAINNET_RPC_URL || "";
 export const devnetRpcUrl = process.env.DEVNET_RPC_URL || DEFAULT_DEVNET_RPC_URL;
 
+export const useSolanaMcpServer = process.env.USE_SOLANA_MCP_SERVER === "true" || false;
+
 if (!privateKey) {
   throw new Error("PRIVATE_KEY environment variable is not set.");
 }
