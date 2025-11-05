@@ -24,6 +24,7 @@ import { USDC_DECIMALS } from "./config/constants.js";
 import { withPaymentInterceptor, decodeXPaymentResponse } from "x402-axios";
 import axios from "axios";
 
+import { solanaFacilitators } from "facilitators"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -357,12 +358,40 @@ async function createMcpServer() {
         }
     )
 
+    server.registerTool(
+        "get_facilitators",
+        {
+            title: "Get Facilitators",
+            description: "Retrieve a list of known Solana facilitators.",
+            inputSchema: {},
+        },
+        async () => {
+            return {
+                content: [
+                    {
+                        type: "text",
+                        text: JSON.stringify(
+                            {
+                                facilitators: solanaFacilitators,
+                                totalFacilitators: solanaFacilitators.length,
+                            },
+                            null,
+                            2
+                        ),
+                    },
+                ],
+            };
+        }
+    )
+
     return server;
 }
 
 export async function run() {
     const server = await createMcpServer();
-    McpLogger.log(JSON.stringify(mcpConfig.environment, null, 2));
+    McpLogger.log(JSON.stringify({
+        mcpConfig
+    }, null, 2));
     if (!mcpConfig.environment.useStreamHttp) {
         const transport = new StdioServerTransport();
         await server.connect(transport);
