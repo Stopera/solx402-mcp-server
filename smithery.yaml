@@ -1,0 +1,47 @@
+runtime: "container"
+build:
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
+startCommand:
+  type: "http"
+  configSchema:
+    type: "object"
+    required: ["privateKey", "mainnetRpcUrl"]
+    properties:
+      privateKey:
+        type: "string"
+        title: "Private Key"
+        description: "Private key in Bs58 format"
+        x-secret: true
+      mainnetRpcUrl:
+        type: "string"
+        format: "uri"
+        title: "Mainnet RPC URL"
+        description: "RPC URL for Solana mainnet"
+      devnetRpcUrl:
+        type: "string"
+        format: "uri"
+        title: "Devnet RPC URL"
+        description: "RPC URL for Solana devnet"
+        default: "https://api.devnet.solana.com"
+      isMainnet:
+        type: "boolean"
+        title: "Is Mainnet?"
+        description: "Set to true for mainnet, false for devnet"
+        default: false
+      facilitatorUrl:
+        type: "string"
+        format: "uri"
+        title: "Facilitator URL"
+        description: "URL of the x402 facilitator"
+        default: "https://facilitator.payai.network"
+      maxPrice:
+        type: "number"
+        title: "Max Price"
+        description: "Maximum price to pay for services in USDC. e.g 10000 = 0.01 USDC"
+        default: 0
+      useSolanaMcpServer:
+        type: "boolean"
+        title: "Use Solana MCP Server?"
+        description: "Set to true to use Solana MCP Server. Default false"
+        default: false

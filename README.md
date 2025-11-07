@@ -2,15 +2,21 @@
 
 <p></p>
 
-<img src="./assets/solana-logo.jpeg" width=120 height=120 alt="Solana logo" />
+<img src="./assets/solx402-logo.png" width=140  alt="Solana logo" />
 
 <p></p>
 
 <h1>SOLx402 MCP Server</h1>
 
+<p>
 <a href="https://www.x402.org/" target="_blank">
 <img src="./assets/x402-badge.png" width=132 alt="x402 Badge">
 </a>
+&nbsp;&nbsp;
+<a href="#" target="_blank">
+<img src="https://smithery.ai/badge/@leandrogavidia/marinade-finance-mcp-server" alt="smithery badge">
+</a>
+</p>
 
 <p></p>
 
@@ -18,6 +24,10 @@
 
 <a href="#" target="_blank">Official page</a>
 </div>
+
+## Diagram flow
+
+<img src="./assets/x402-protocol-flow.avif" width=840 alt="x402 Diagram flow">
 
 ## Tools
 

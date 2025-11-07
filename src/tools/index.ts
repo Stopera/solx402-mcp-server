@@ -1,9 +1,6 @@
 import z from "zod";
 import type { ToolDefinition } from "../types/index.js";
-import { promises as fs } from "fs";
 
-import path from "path";
-import { fileURLToPath } from "url";
 import { createX402DocsMcpClient } from "../clients/x402-docs.js";
 import { useFacilitator } from "x402/verify";
 import { getkeypair, getSigner } from "../on-chain/wallet.js";
@@ -16,8 +13,6 @@ import axios from "axios";
 import { solanaFacilitators } from "facilitators"
 import { createSolanaMcpClient } from "../clients/solana.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 export const solX402Tools: ToolDefinition[] = [
     // Register x402 Protocol Flow Diagram Resource
@@ -31,9 +26,9 @@ export const solX402Tools: ToolDefinition[] = [
         },
         callback: async () => {
             try {
-                const imagePath = path.join(__dirname, "../../", "assets", "x402-protocol-flow.avif");
-                const imageBuffer = await fs.readFile(imagePath);
-                const base64Image = imageBuffer.toString("base64");
+                const imageUrl = "https://raw.githubusercontent.com/leandrogavidia/solx402-mcp-server/refs/heads/main/assets/x402-protocol-flow.avif";
+                const response = await axios.get(imageUrl, { responseType: 'arraybuffer' });
+                const base64Image = Buffer.from(response.data).toString("base64");
 
                 return {
                     content: [
@@ -49,8 +44,8 @@ export const solX402Tools: ToolDefinition[] = [
                     ],
                 };
             } catch (err) {
-                console.error(`Failed to read x402-protocol-flow.avif: ${err}`);
-                throw new Error(`Failed to read resource: ${(err as Error)?.message ?? err}`);
+                console.error(`Failed to fetch x402-protocol-flow.avif from URL: ${err}`);
+                throw new Error(`Failed to fetch resource: ${(err as Error)?.message ?? err}`);
             }
         }
     },
