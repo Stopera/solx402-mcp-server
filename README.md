@@ -13,7 +13,7 @@
 <img src="./assets/x402-badge.png" width=132 alt="x402 Badge">
 </a>
 &nbsp;&nbsp;
-<a href="#" target="_blank">
+<a href="https://smithery.ai/server/@leandrogavidia/solx402-mcp-server" target="_blank">
 <img src="https://smithery.ai/badge/@leandrogavidia/marinade-finance-mcp-server" alt="smithery badge">
 </a>
 </p>
@@ -28,6 +28,29 @@
 ## Diagram flow
 
 <img src="./assets/x402-protocol-flow.avif" width=840 alt="x402 Diagram flow">
+
+## Integration 
+
+To integrate the **SOLx402 MCP Server**, follow these steps:
+
+1. Go to the [SOLx402 MCP Server Smithery page](https://smithery.ai/server/@leandrogavidia/solx402-mcp-server).
+2. Sign in.
+3. Click the Configure button.
+4. Fill in the required fields (and optional fields, if needed).
+5. Generate the URL using your API key and Profile, then copy it.
+6. Add the generated MCP Server URL to your system (e.g., Claude, Cursor, VS Code, etc.).
+
+    ```json
+    {
+        "mcpServers": {
+                "solx402-mcp-server": {
+                    "url": "https://server.smithery.ai/@leandrogavidia/solx402-mcp-server/mcp?api_key=<YOUR-SMITHERY-API-KEY>&profile=<YOUR-SMITHERY-PROFILE>",
+                    "type": "streamable-http",
+                    "timeout": 120000
+                },
+            }
+    }
+    ```
 
 ## Tools
 
@@ -92,7 +115,7 @@
 {
   "mcpServers": {
     "solx402": {
-      "url": "<mcp-url>/mcp?privateKey=<your-bs58-private-key>&mainnetRpcUrl=<your-solana-mainnet-rpc>",
+      "url": "https://server.smithery.ai/@leandrogavidia/solx402-mcp-server/mcp?api_key=<YOUR-SMITHERY-API-KEY>&profile=<YOUR-SMITHERY-PROFILE>",
       "type": "streamable-http",
       "timeout": 120000 // 2 Minutes
     }
