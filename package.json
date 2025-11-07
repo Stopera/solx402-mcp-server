@@ -6,7 +6,13 @@
   ],
   "scripts": {
     "dev:mcp": "pnpm --filter ./apps/mcp-server run dev",
-    "dev:web": "pnpm --filter ./apps/web run dev"
+    "dev:web": "pnpm --filter ./apps/web run dev",
+
+    "build:mcp": "pnpm --filter ./apps/mcp-server run build",
+    "build:web": "pnpm --filter ./apps/web run build",
+
+    "start:mcp": "pnpm --filter ./apps/mcp-server run start",
+    "start:web": "pnpm --filter ./apps/web run start"
   },
   "engines": {
     "node": ">=18"
