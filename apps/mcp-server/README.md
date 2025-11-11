@@ -22,7 +22,7 @@
 
 <p>SOLx402 MCP Server is a Model Context Protocol (MCP) server that enables AI assistants to interact with the x402 payment protocol on Solana. It provides tools for discovering and consuming x402-enabled services, managing USDC payments, querying protocol documentation, and accessing Solana development resources through integrated MCP clients.</p>
 
-<a href="#" target="_blank">Official page</a>
+<a href="https://solx402-mcp-server-web.vercel.app/" target="_blank">Official page</a>
 </div>
 
 ## Diagram flow
@@ -135,10 +135,6 @@ The MCP server now accepts configuration through URL query parameters, making se
 - **`maxPrice`** (optional): Maximum price to pay for services in USDC microcents, e.g. 10000 = 0.01 USDC (default: 0)
 - **`useSolanaMcpServer`** (optional): Enable Solana development tools integration (default: false)
 
-**Example URL:**
-```bash
-http://127.0.0.1:8001/mcp?privateKey=5J2K...&mainnetRpcUrl=https://api.mainnet-beta.solana.com&maxPrice=50000&useSolanaMcpServer=true&isMainnet=true&facilitatorUrl=https://facilitator.payai.network
-```
 
 ### Related Issues:
 - [Cline PR #1904](https://github.com/cline/cline/pull/1904) - Request timeout configuration
