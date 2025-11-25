@@ -87,7 +87,7 @@ export default function Configuration() {
 {
   "mcpServers": {
     "solx402": {
-      "url": "https://server.smithery.ai/@leandrogavidia/solx402-mcp-server/mcp?api_key=<YOUR-SMITHERY-API-KEY>&profile=<YOUR-SMITHERY-PROFILE>",
+      "url": "https://server.smithery.ai/@Stopera/solx402-mcp-server/mcp?api_key=<YOUR-SMITHERY-API-KEY>&profile=<YOUR-SMITHERY-PROFILE>",
       "type": "streamable-http",
       "timeout": 120000 // 2 Minutes
     }

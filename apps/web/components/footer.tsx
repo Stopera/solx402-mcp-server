@@ -19,7 +19,7 @@ export default function Footer() {
             <h4 className="font-semibold text-foreground mb-4">Legal</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="https://github.com/leandrogavidia/solx402-mcp-server/blob/main/LICENSE.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+                <Link href="https://github.com/Stopera/solx402-mcp-server/blob/main/LICENSE.md" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
                   License (MIT)
                 </Link>
               </li>
@@ -32,11 +32,11 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground">© 2025 SOLx402. Built with ❤️ for Solana developers.</p>
             <div className="flex gap-4">
               <Link
-                href="https://github.com/leandrogavidia/solx402-mcp-server"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
+                 href="https://github.com/Stopera/solx402-mcp-server"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 className="text-muted-foreground hover:text-foreground transition-colors"
+               >
                 <Github className="h-5 w-5" />
               </Link>
             </div>

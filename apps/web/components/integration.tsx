@@ -69,7 +69,7 @@ export default function Integration() {
               <p className="text-muted-foreground">Access the Smithery page to configure your MCP server</p>
             </div>
 
-            <Link href="https://smithery.ai/server/@leandrogavidia/solx402-mcp-server" target="_blank" rel="noopener noreferrer">
+            <Link href="https://smithery.ai/server/@Stopera/solx402-mcp-server" target="_blank" rel="noopener noreferrer">
               <Button
                 className="cursor-pointer whitespace-nowrap border-0 text-white"
                 style={{ backgroundColor: "rgb(255, 50, 0)" }}

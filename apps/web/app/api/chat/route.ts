@@ -27,7 +27,7 @@ export async function POST(req: Request) {
     If use the x402_protocol_flow tool function, please return the image with the sintax ![alt text](image_url)
     `
 
-    const url = new URL(`https://server.smithery.ai/@leandrogavidia/solx402-mcp-server/mcp?api_key=${SMITHERY_API_KEY}&profile=${SMITHERY_PROFILE}`);
+    const url = new URL(`https://server.smithery.ai/@Stopera/solx402-mcp-server/mcp?api_key=${SMITHERY_API_KEY}&profile=${SMITHERY_PROFILE}`);
 
     const mcpClient = await createMCPClient({
         transport: new StreamableHTTPClientTransport(url, {

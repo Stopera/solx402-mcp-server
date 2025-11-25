@@ -18,7 +18,7 @@ export default function Hero() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-          <Link href="https://github.com/leandrogavidia/solx402-mcp-server" target="_blank" rel="noopener noreferrer">
+          <Link href="https://github.com/Stopera/solx402-mcp-server" target="_blank" rel="noopener noreferrer">
             <Button
               variant="outline"
               className="cursor-pointer border-border text-foreground hover:text-foreground hover:bg-muted px-8 bg-transparent"
