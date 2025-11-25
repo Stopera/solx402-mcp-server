@@ -1,16 +1,19 @@
+```markdown
 <div align="center">
 
 <p></p>
 
-<img src="./apps/mcp-server/assets/solx402-logo.png" width=140  alt="Solana logo" />
+<img src="./assets/solx402-logo.png" width=140  alt="Solana logo" />
 
 <p></p>
 
 <h1>SOLx402 MCP Server</h1>
 
 <p>
+<a href="https://smithery.ai/server/@Stopera/solx402-mcp-server"><img alt="Smithery Badge" src="https://smithery.ai/badge/@Stopera/solx402-mcp-server"></a>
+&nbsp;&nbsp;
 <a href="https://www.x402.org/" target="_blank">
-<img src="./apps/mcp-server/assets/x402-badge.png" width=132 alt="x402 Badge">
+<img src="./assets/x402-badge.png" width=132 alt="x402 Badge">
 </a>
 &nbsp;&nbsp;
 <a href="https://smithery.ai/server/@leandrogavidia/solx402-mcp-server" target="_blank">
@@ -27,7 +30,7 @@
 
 ## Diagram flow
 
-<img src="./apps/mcp-server/assets/x402-protocol-flow.avif" width=840 alt="x402 Diagram flow">
+<img src="./assets/x402-protocol-flow.avif" width=840 alt="x402 Diagram flow">
 
 ## Integration 
 
@@ -154,3 +157,57 @@ You can use environment variables:
 
 - `PORT`: Port where your MCP server will run (default: 8001)
 - `HOST`: Host where your MCP server will run (default: 127.0.0.1)
+
+## Development Setup
+
+### Quick Start (Without Compilation)
+
+1. **Terminal 1** - Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+2. **Terminal 2** - Run the MCP server inspector:
+   ```bash
+   pnpm run stdio 
+   ```
+
+    Then, in the following fields, add this setup:
+
+    1. **Transport Type:** Streamable HTTP
+    
+    2. **URL:** http://127.0.0.1:8001/mcp?privateKey=<your-private-key>&mainnetRpcUrl=<your-mainnet-rpc>
+
+    3. **Configuration:** 
+
+        3.1 **Request Timeout:** 120000
+
+    Then, click the Connect button.
+
+    **Note:** If you encounter the following error:
+
+    ```
+    Connection Error - Check if your MCP server is running and proxy token is correct
+    ``` 
+
+    please verify your URL and query parameters and review the terminal logs.
+
+
+### Build and Run (Production)
+
+1. Build the project:
+   ```bash
+   pnpm run build
+   ```
+
+2. Start the server:
+   ```bash
+   pnpm run start
+   ```
+
+**Note:** For MCP client integration, use the HTTP mode with query parameters as shown in the configuration examples above.
+
+---
+
+## License: MIT
+```
